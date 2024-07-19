@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './CandidateTemplates.css'; // Opcional: para estilos
 
 const candidates = [
@@ -32,19 +33,23 @@ const CandidateTemplates = () => {
   const filteredCandidates = candidates.filter(candidate => candidate.electionId === parseInt(electionId));
 
   return (
-    <div className="candidate-templates">
+    <Container className="candidate-templates">
       <h1>Plantillas de Candidatos</h1>
-      <ul>
+      <Row>
         {filteredCandidates.map(candidate => (
-          <li key={candidate.id} className="candidate-card">
-            <img src={candidate.photo} alt={candidate.name} className="candidate-photo" />
-            <h2>{candidate.name}</h2>
-            <p>{candidate.description}</p>
-            <button>Votar</button>
-          </li>
+          <Col key={candidate.id} md={4} className="mb-4">
+            <Card className="candidate-card">
+              <Card.Img variant="top" src={candidate.photo} alt={candidate.name} className="candidate-photo" />
+              <Card.Body>
+                <Card.Title>{candidate.name}</Card.Title>
+                <Card.Text>{candidate.description}</Card.Text>
+                <Button variant="primary">Votar</Button>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </ul>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

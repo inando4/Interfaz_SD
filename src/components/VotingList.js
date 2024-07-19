@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroup, Container, Row, Col } from 'react-bootstrap';
 import './VotingList.css'; // Opcional: para estilos
 
 const VotingList = () => {
@@ -10,16 +11,20 @@ const VotingList = () => {
   ];
 
   return (
-    <div className="voting-list">
-      <h1>Lista de Votaciones</h1>
-      <ul>
-        {elections.map(election => (
-          <li key={election.id}>
-            <a href={`/election/${election.id}`}>{election.name}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container className="voting-list">
+      <Row>
+        <Col>
+          <h1>Lista de Votaciones</h1>
+          <ListGroup>
+            {elections.map(election => (
+              <ListGroup.Item key={election.id} action href={`/election/${election.id}`}>
+                {election.name}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
