@@ -1,0 +1,22 @@
+.voting-list {
+    padding: 20px;
+  }
+  
+  .voting-list h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .voting-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .voting-list li {
+    margin-bottom: 10px;
+  }
+  
+  .voting-list a {
+    text-decoration: none;
+    color: blue;
+  }

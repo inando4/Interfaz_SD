@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import VotingList from './components/VotingList';
+import CandidateTemplates from './components/CandidateTemplates';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route exact path="/" element={<VotingList />} />
+          <Route path="/election/:electionId" element={<CandidateTemplates />} />
+          {/* Aquí puedes agregar más rutas para otras páginas */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

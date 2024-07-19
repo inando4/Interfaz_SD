@@ -1,0 +1,42 @@
+.candidate-templates {
+    padding: 20px;
+  }
+  
+  .candidate-templates h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .candidate-templates ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .candidate-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .candidate-photo {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .candidate-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .candidate-card p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .candidate-card button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
