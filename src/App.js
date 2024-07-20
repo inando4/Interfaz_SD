@@ -26,7 +26,9 @@ kc.init({
     console.log('auth', auth)
     console.log('Keycloak', kc)
     console.log('Access Token', kc.token)
-
+    console.log(kc)
+    const nombreUsuario = kc.tokenParsed.name;
+    console.log('Nombre Usuario:', nombreUsuario)
     kc.onTokenExpired = () => {
       console.log('token expired')
     }
@@ -42,7 +44,15 @@ const handleLogout = () => {
   }
 }
 
+const getNombreUsuario = () => {
+  if (kc && kc.tokenParsed) {
+    return kc.tokenParsed.name;
+  }
+  return ''; // Retorna una cadena vacía o un valor predeterminado si kc o kc.tokenParsed no están definidos
+};
+
 function App() {
+  const nombreUsuario = getNombreUsuario(); // Paso 1 y 2
   return (
     <Router>
       <div>
@@ -63,6 +73,9 @@ function App() {
             </div>
           </div>
         </nav>
+        <div>
+          <h2>Bienvenido: {nombreUsuario}</h2>
+        </div>
         <div className="App">
           <Routes>
             <Route exact path="/" element={<VotingList />} />
