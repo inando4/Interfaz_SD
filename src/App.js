@@ -6,21 +6,56 @@ import AdminDashboard from './components/AdminDashboard';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
 
+
 const keycloakOptions = {
-  url: 'http://localhost:8080',
-  realm: 'reino-prueba',
-  clientId: 'react-app-client',
+  url: "http://localhost:8080/",
+  realm: "reino-prueba",
+  clientId: "react-app-client",
 };
 
+const kc = new Keycloak(keycloakOptions);
+
+kc.init({
+  onLoad: 'login-required', // Supported values: 'check-sso' , 'login-required'
+  checkLoginIframe: true,
+}).then((auth) => {
+  if (!auth) {
+    window.location.reload();
+  } else {
+    /* Remove below logs if you are using this on production */
+    console.info("Authenticated");
+    console.log('auth', auth)
+    console.log('Keycloak', kc)
+    console.log('Access Token', kc.token)
+
+    /* http client will use this header in every request it sends */
+
+
+    kc.onTokenExpired = () => {
+      console.log('token expired')
+    }
+  }
+}, () => {
+  /* Notify the user if necessary */
+  console.error("Authentication Failed");
+});
+
+const handleLogout = () => {
+  if (kc) {
+    kc.logout();
+  }
+}
+
 function App() {
-  const [keycloak, setKeycloak] = useState(null);
+  /*const [keycloak, setKeycloak] = useState(null);
 
   useEffect(() => {
     const initKeycloak = async () => {
-      const keycloakInstance = new Keycloak(keycloakOptions);
+      const keycloakInstance = new Keycloak(keycloakOptions)
+
       try {
-        await keycloakInstance.init({ onLoad: 'login-required' });
-        setKeycloak(keycloakInstance);
+        await keycloakInstance.init({ onLoad: 'login-required' })
+        setKeycloak(keycloakInstance)
         if (keycloakInstance.authenticated) {
           console.log(keycloakInstance);
         }
@@ -29,14 +64,14 @@ function App() {
       }
     };
     initKeycloak();
-  }, []);
+  }, [])
 
   const handleLogout = () => {
     if (keycloak) {
       keycloak.logout();
     }
-  };
-
+  }
+ */
   return (
     <Router>
       <div>
@@ -48,7 +83,7 @@ function App() {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
-                {keycloak && keycloak.authenticated ? (
+                { true? (
                   <li className="nav-item">
                     <button className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
                   </li>
@@ -58,18 +93,7 @@ function App() {
           </div>
         </nav>
 
-        <div className="container-fluid">
-          {keycloak && keycloak.authenticated ? (
-            <div>
-              <h2 className='text-center'>React App</h2>
-              <AdminDashboard />
-            </div>
-          ) : (
-            <div>
-              <h2>Login</h2>
-            </div>
-          )}
-        </div>
+
 
         <div className="App">
           <Routes>
