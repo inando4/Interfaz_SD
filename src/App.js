@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState, useEffect } from 'react';
 import VotingList from './components/VotingList';
 import CandidateTemplates from './components/CandidateTemplates';
 import AdminDashboard from './components/AdminDashboard';
@@ -28,9 +27,6 @@ kc.init({
     console.log('Keycloak', kc)
     console.log('Access Token', kc.token)
 
-    /* http client will use this header in every request it sends */
-
-
     kc.onTokenExpired = () => {
       console.log('token expired')
     }
@@ -47,43 +43,18 @@ const handleLogout = () => {
 }
 
 function App() {
-  /*const [keycloak, setKeycloak] = useState(null);
-
-  useEffect(() => {
-    const initKeycloak = async () => {
-      const keycloakInstance = new Keycloak(keycloakOptions)
-
-      try {
-        await keycloakInstance.init({ onLoad: 'login-required' })
-        setKeycloak(keycloakInstance)
-        if (keycloakInstance.authenticated) {
-          console.log(keycloakInstance);
-        }
-      } catch (error) {
-        console.log(`Error ${error}`);
-      }
-    };
-    initKeycloak();
-  }, [])
-
-  const handleLogout = () => {
-    if (keycloak) {
-      keycloak.logout();
-    }
-  }
- */
   return (
     <Router>
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container-fluid">
-            <a className="navbar-brand" href="/">React App</a>
+            <a className="navbar-brand" href="/">Sistema Electoral</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
-                { true? (
+                {true ? (
                   <li className="nav-item">
                     <button className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
                   </li>
@@ -92,9 +63,6 @@ function App() {
             </div>
           </div>
         </nav>
-
-
-
         <div className="App">
           <Routes>
             <Route exact path="/" element={<VotingList />} />
