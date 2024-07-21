@@ -2,17 +2,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VotingList from './components/VotingList';
 import CandidateTemplates from './components/CandidateTemplates';
 import AdminDashboard from './components/AdminDashboard';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate,Outlet } from 'react-router-dom';
 import React from 'react';
 import keycloak from './keycloak'; // Importa la instancia de Keycloak
 
 function App() {
+  const ProtectedRoute = ({
+    isAllowed,
+    redirectPath = '/',
+    children,
+  }) => {
+    if (!isAllowed) {
+      return <Navigate to={redirectPath} replace />;
+    } 
+  
+    return children ? children : <Outlet />;
+  };
   const handleLogout = () => {
     keycloak.logout();
   };
   return (
     <Router>
-        <div>
+      <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">Sistema Electoral</a>
@@ -30,15 +41,26 @@ function App() {
             </div>
           </div>
         </nav>
-        </div>
-        <div className="App">
-          <Routes>
-            <Route exact path="/" element={<VotingList />} />
-            <Route path="/election/:electionId" element={<CandidateTemplates />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            {/* Aquí puedes agregar más rutas para otras páginas */}
-          </Routes>
-        </div>
+      </div>
+      <div className="App">
+
+        <Routes>
+          <Route exact path="/" element={<VotingList />} />
+          <Route path="/election/:electionId" element={<CandidateTemplates />} />
+          <Route
+          path="/admin"
+          element={
+            <ProtectedRoute
+              redirectPath="/"
+              isAllowed={false}
+            >
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+          
+        </Routes>
+      </div>
     </Router>
   );
 }
