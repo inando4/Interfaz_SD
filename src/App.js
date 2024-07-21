@@ -2,25 +2,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VotingList from './components/VotingList';
 import CandidateTemplates from './components/CandidateTemplates';
 import AdminDashboard from './components/AdminDashboard';
-import { BrowserRouter as Router, Route, Routes, Navigate,Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import React from 'react';
-import keycloak from './keycloak'; // Importa la instancia de Keycloak
+import { useKeycloak } from '@react-keycloak/web';
 
-function App() {
-  const ProtectedRoute = ({
-    isAllowed,
-    redirectPath = '/',
-    children,
-  }) => {
-    if (!isAllowed) {
-      return <Navigate to={redirectPath} replace />;
-    } 
-  
-    return children ? children : <Outlet />;
-  };
+const ProtectedRoute = ({ isAllowed, redirectPath = '/', children }) => {
+  if (!isAllowed) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children ? children : <Outlet />;
+};
+
+const App = () => {
+  const { keycloak, initialized } = useKeycloak();
+
   const handleLogout = () => {
     keycloak.logout();
   };
+
+  if (!initialized) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Router>
       <div>
@@ -32,7 +36,7 @@ function App() {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
-                {true ? (
+                {keycloak.authenticated ? (
                   <li className="nav-item">
                     <button className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
                   </li>
@@ -42,27 +46,26 @@ function App() {
           </div>
         </nav>
       </div>
-      <div className="App">
 
+      <div className="App">
         <Routes>
           <Route exact path="/" element={<VotingList />} />
           <Route path="/election/:electionId" element={<CandidateTemplates />} />
           <Route
-          path="/admin"
-          element={
-            <ProtectedRoute
-              redirectPath="/"
-              isAllowed={false}
-            >
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-          
+            path="/admin/*"
+            element={
+              <ProtectedRoute
+                redirectPath="/"
+                isAllowed={keycloak.authenticated && keycloak.hasRealmRole('Administrador')}
+              >
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
