@@ -3,6 +3,7 @@ import './App.css'; // Importa el archivo CSS personalizado
 import VotingList from './components/VotingList';
 import CandidateTemplates from './components/CandidateTemplates';
 import AdminDashboard from './components/AdminDashboard';
+import Footer from './components/Footer'; // Importa el componente Footer
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useKeycloak } from '@react-keycloak/web';
@@ -93,6 +94,8 @@ const App = () => {
           />
         </Routes>
       </div>
+
+      <Footer /> {/* Añade el componente Footer aquí */}
     </Router>
   );
 };
