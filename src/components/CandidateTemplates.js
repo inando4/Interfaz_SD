@@ -66,7 +66,9 @@ const CandidateTemplates = () => {
 
   return (
     <Container className="candidate-templates">
+      <br></br>
       <h1 className="text-center">{election ? election.name : 'Plantillas de Candidatos'}</h1>
+      <br></br>
       <Row>
         {filteredCandidates.map(candidate => (
           <Col key={candidate.id} md={3} className="mb-4"> {/* Cambiado a 3 para 4 columnas por fila */}
