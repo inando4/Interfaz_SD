@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'; // Importa el archivo CSS personalizado
 import VotingList from './components/VotingList';
 import CandidateTemplates from './components/CandidateTemplates';
 import AdminDashboard from './components/AdminDashboard';
@@ -70,13 +71,8 @@ const App = () => {
       </div>
 
       <div className="App">
-        {keycloak.authenticated && (
-          <div className="container mt-3">
-            <h5>Bienvenido, {userName}</h5>
-          </div>
-        )}
         <Routes>
-          <Route exact path="/" element={<VotingList />} />
+          <Route exact path="/" element={<VotingList userName={keycloak.authenticated ? userName : null} />} />
           <Route path="/election/:electionId" element={<CandidateTemplates />} />
           <Route
             path="/admin/*"

@@ -24,3 +24,8 @@
   background-color: #007bff;
   border-color: #007bff;
 }
+
+.search-bar {
+  width: 400px; /* Ajusta el ancho según sea necesario */
+  margin-left: auto; /* Alinea a la derecha */
+}
