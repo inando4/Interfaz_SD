@@ -17,7 +17,8 @@ const ProtectedRoute = ({ isAllowed, redirectPath = '/', children }) => {
 
 const App = () => {
   const { keycloak, initialized } = useKeycloak();
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const initialTimeLeft = parseInt(localStorage.getItem('timeLeft')) || 300; // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -25,7 +26,11 @@ const App = () => {
     }
 
     const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
+      setTimeLeft((prevTimeLeft) => {
+        const newTimeLeft = prevTimeLeft - 1;
+        localStorage.setItem('timeLeft', newTimeLeft);
+        return newTimeLeft;
+      });
     }, 1000);
 
     return () => clearInterval(intervalId);
@@ -33,6 +38,7 @@ const App = () => {
 
   const handleLogout = () => {
     keycloak.logout();
+    localStorage.removeItem('timeLeft'); // Limpiar el tiempo restante al cerrar sesión
   };
 
   if (!initialized) {
