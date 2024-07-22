@@ -7,16 +7,17 @@ import ManageBallots from './ManageBallots';
 
 const AdminDashboard = () => {
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col md={3}>
+        <Col md={2} className="admin-nav"> {/* Ajusta el ancho de la columna de navegación */}
           <Nav className="flex-column">
+            <br></br>
             <Nav.Link as={Link} to="/admin/elections">Gestionar Elecciones</Nav.Link>
             <Nav.Link as={Link} to="/admin/candidates">Gestionar Candidatos</Nav.Link>
             <Nav.Link as={Link} to="/admin/ballots">Gestionar Cartillas</Nav.Link>
           </Nav>
         </Col>
-        <Col md={9}>
+        <Col md={9} className="admin-content"> {/* Ajusta el ancho de la columna de contenido */}
           <Routes>
             <Route path="elections" element={<ManageElections />} />
             <Route path="candidates" element={<ManageCandidates />} />

@@ -21,6 +21,7 @@ const ManageBallots = () => {
 
   return (
     <div>
+      <br></br>
       <h2>Gestionar Cartillas</h2>
       <Button variant="primary" onClick={handleShow}>Agregar Cartilla</Button>
       <Table striped bordered hover>

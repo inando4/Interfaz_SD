@@ -21,6 +21,7 @@ const ManageCandidates = () => {
 
   return (
     <div>
+      <br></br>
       <h2>Gestionar Candidatos</h2>
       <Button variant="primary" onClick={handleShow}>Agregar Candidato</Button>
       <Table striped bordered hover>
