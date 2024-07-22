@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import './CandidateTemplates.css'; // Opcional: para estilos
+import { elections } from './VotingList'; // Importa las elecciones
 
 const candidates = [
   {
@@ -11,20 +12,36 @@ const candidates = [
     description: 'Descripción del Candidato 1',
     photo: '/mimujer.enc',
   },
+
   {
     id: 2,
     electionId: 1,
-    name: 'Candidato 2',
-    description: 'Descripción del Candidato 2',
-    photo: 'url-de-la-foto-2',
+    name: 'Mi Abigail <3',
+    description: 'Descripción del Candidato 1',
+    photo: '/mimujer.enc',
   },
   {
     id: 3,
+    electionId: 1,
+    name: 'Mi Abigail <3',
+    description: 'Descripción del Candidato 1',
+    photo: '/mimujer.enc',
+  },
+  {
+    id: 4,
+    electionId: 1,
+    name: 'Mi Abigail <3',
+    description: 'Descripción del Candidato 1',
+    photo: '/mimujer.enc',
+  },
+  
+  {
+    id: 5,
     electionId: 2,
     name: 'Candidato 3',
     description: 'Descripción del Candidato 3',
     photo: 'url-de-la-foto-3',
-  },
+  }
   // Agrega más candidatos según sea necesario
 ];
 
@@ -37,10 +54,11 @@ const CandidateTemplates = () => {
   };
 
   const filteredCandidates = candidates.filter(candidate => candidate.electionId === parseInt(electionId));
+  const election = elections.find(election => election.id === parseInt(electionId));
 
   return (
     <Container className="candidate-templates">
-      <h1>Plantillas de Candidatos</h1>
+      <h1 className="text-center">{election ? election.name : 'Plantillas de Candidatos'}</h1>
       <Row>
         {filteredCandidates.map(candidate => (
           <Col key={candidate.id} md={3} className="mb-4"> {/* Cambiado a 3 para 4 columnas por fila */}

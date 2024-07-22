@@ -1,19 +1,21 @@
+// VotingList.js
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa'; // Asegúrate de instalar react-icons
 import './VotingList.css'; // Asegúrate de tener un archivo CSS para estilos personalizados
 
+export const elections = [
+  { id: 1, name: 'Elecciones Presidenciales' },
+  { id: 2, name: 'Elecciones para Alcaldía' },
+  { id: 3, name: 'Elecciones de Universidad' },
+  { id: 4, name: 'Elecciones de Municipio' },
+  { id: 5, name: 'Elecciones de Region Arequipa' },
+  { id: 6, name: 'Elecciones de la UNSA' },
+  // Agrega más elecciones según sea necesario
+];
+
 const VotingList = ({ userName }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const elections = [
-    { id: 1, name: 'Elecciones Presidenciales' },
-    { id: 2, name: 'Elecciones para Alcaldía' },
-    { id: 3, name: 'Elecciones de Universidad' },
-    { id: 4, name: 'Elecciones de Municipio' },
-    { id: 5, name: 'Elecciones de Region Arequipa' },
-    { id: 6, name: 'Elecciones de la UNSA' },
-    // Agrega más elecciones según sea necesario
-  ];
 
   const filteredElections = elections.filter(election =>
     election.name.toLowerCase().includes(searchTerm.toLowerCase())
