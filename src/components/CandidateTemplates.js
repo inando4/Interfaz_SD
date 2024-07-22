@@ -12,7 +12,6 @@ const candidates = [
     description: 'Descripción del Candidato 1',
     photo: '/mimujer.enc',
   },
-
   {
     id: 2,
     electionId: 1,
@@ -34,7 +33,6 @@ const candidates = [
     description: 'Descripción del Candidato 1',
     photo: '/mimujer.enc',
   },
-  
   {
     id: 5,
     electionId: 2,
@@ -51,6 +49,16 @@ const CandidateTemplates = () => {
 
   const handleSelect = (id) => {
     setSelectedCandidate(id);
+  };
+
+  const handleVote = () => {
+    if (selectedCandidate !== null) {
+      const candidate = candidates.find(candidate => candidate.id === selectedCandidate);
+      alert(`Has votado por: ${candidate.name}`);
+      // lógica para enviar el voto al servidor
+    } else {
+      alert('Por favor, selecciona un candidato antes de votar.');
+    }
   };
 
   const filteredCandidates = candidates.filter(candidate => candidate.electionId === parseInt(electionId));
@@ -72,6 +80,9 @@ const CandidateTemplates = () => {
           </Col>
         ))}
       </Row>
+      <div className="text-center mt-4">
+        <Button variant="success" onClick={handleVote}>Votar</Button>
+      </div>
     </Container>
   );
 };
