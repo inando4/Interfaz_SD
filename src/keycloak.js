@@ -2,7 +2,7 @@ import Keycloak from 'keycloak-js';
 
 const keycloakConfig = {
     url: "http://localhost:8080/",
-    realm: "reino-prueba",
+    realm: "Sistema-Electoral",
     clientId: "react-app-client",
 };
 
