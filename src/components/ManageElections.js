@@ -35,12 +35,12 @@ const ManageElections = () => {
   };
 
   const data = {
-    labels: ['Candidato 1', 'Candidato 2', 'Candidato 3'], // Nombres de los candidatos
+    labels: ['Acción Popular', 'Alianza para el Progreso', 'Avanza Pais', 'Fuerza Popular'], // Nombres de los candidatos
     datasets: [
       {
-        data: [10, 20, 30], // Cantidad de votos por cada candidato
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        data: [10, 20, 30, 20], // Cantidad de votos por cada candidato
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56','#4BC0C0'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56','#4BC0C0']
       }
     ]
   };
