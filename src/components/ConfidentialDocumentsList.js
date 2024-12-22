@@ -57,8 +57,11 @@ const ConfidentialDocumentsList = () => {
 
   return (
     <div>
-      <h2>Documentos Confidenciales</h2>
+      <br></br>
+      <h2 className="text-center">Documentos Confidenciales</h2>
       {canEdit && <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>}
+      <br></br>
+      <br></br>
       <Table striped bordered hover>
         <thead>
           <tr>

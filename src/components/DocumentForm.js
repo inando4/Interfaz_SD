@@ -42,6 +42,7 @@ const DocumentForm = ({ show, handleClose, handleSave, currentDocument }) => {
             <Form.Label>Archivo</Form.Label>
             <Form.Control type="file" name="file" onChange={handleChange} />
           </Form.Group>
+          <br></br>
           <Button variant="primary" type="submit">Guardar</Button>
         </Form>
       </Modal.Body>

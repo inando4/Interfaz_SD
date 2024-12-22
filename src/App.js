@@ -1,8 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Importa el archivo CSS personalizado
-import VotingList from './components/VotingList';
-import CandidateTemplates from './components/CandidateTemplates';
-import AdminDashboard from './components/AdminDashboard';
 import Footer from './components/Footer'; // Importa el componente Footer
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
@@ -63,7 +60,7 @@ const App = () => {
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container-fluid">
-            <a className="navbar-brand" href="/">Sistema Electoral</a>
+            <a className="navbar-brand" href="/">Gestion de Documentos</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -84,7 +81,6 @@ const App = () => {
       <div className="App">
         <Routes>
           <Route exact path="/" element={<HomePage userName={keycloak.authenticated ? userName : null} />} />
-          <Route path="/election/:electionId" element={<CandidateTemplates />} />
           <Route
             path="/public-documents"
             element={
@@ -115,17 +111,6 @@ const App = () => {
                 isAllowed={keycloak.authenticated && keycloak.hasRealmRole('Administrador')}
               >
                 <SecretDocumentsList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/*"
-            element={
-              <ProtectedRoute
-                redirectPath="/"
-                isAllowed={keycloak.authenticated && keycloak.hasRealmRole('Administrador')}
-              >
-                <AdminDashboard />
               </ProtectedRoute>
             }
           />

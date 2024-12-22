@@ -57,8 +57,11 @@ const PublicDocumentsList = () => {
 
   return (
     <div>
-      <h2>Documentos Públicos</h2>
+      <br></br>
+      <h2 className="text-center">Documentos Públicos</h2>
       {canEdit && <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>}
+      <br></br>
+      <br></br>
       <Table striped bordered hover>
         <thead>
           <tr>

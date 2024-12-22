@@ -53,8 +53,11 @@ const SecretDocumentsList = () => {
 
   return (
     <div>
-      <h2>Documentos Secretos</h2>
+      <br></br>
+      <h2 className="text-center">Documentos Secretos</h2>
       <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>
+      <br></br>
+      <br></br>
       <Table striped bordered hover>
         <thead>
           <tr>
