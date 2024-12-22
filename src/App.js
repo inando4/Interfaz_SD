@@ -85,9 +85,39 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<HomePage userName={keycloak.authenticated ? userName : null} />} />
           <Route path="/election/:electionId" element={<CandidateTemplates />} />
-          <Route path="/public-documents" element={<PublicDocumentsList />} />
-          <Route path="/confidential-documents" element={<ConfidentialDocumentsList />} />
-          <Route path="/secret-documents" element={<SecretDocumentsList />} />
+          <Route
+            path="/public-documents"
+            element={
+              <ProtectedRoute
+                redirectPath="/"
+                isAllowed={keycloak.authenticated && (keycloak.hasRealmRole('Administrador') || keycloak.hasRealmRole('Gerente') || keycloak.hasRealmRole('Empleado'))}
+              >
+                <PublicDocumentsList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/confidential-documents"
+            element={
+              <ProtectedRoute
+                redirectPath="/"
+                isAllowed={keycloak.authenticated && (keycloak.hasRealmRole('Administrador') || keycloak.hasRealmRole('Gerente'))}
+              >
+                <ConfidentialDocumentsList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/secret-documents"
+            element={
+              <ProtectedRoute
+                redirectPath="/"
+                isAllowed={keycloak.authenticated && keycloak.hasRealmRole('Administrador')}
+              >
+                <SecretDocumentsList />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/*"
             element={

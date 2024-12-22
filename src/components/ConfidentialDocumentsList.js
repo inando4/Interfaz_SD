@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import DocumentForm from './DocumentForm';
+import { useKeycloak } from '@react-keycloak/web';
 
 const ConfidentialDocumentsList = () => {
+  const { keycloak } = useKeycloak();
   const [documents, setDocuments] = useState(() => {
     const savedDocuments = localStorage.getItem('confidentialDocuments');
     return savedDocuments ? JSON.parse(savedDocuments) : [];
@@ -51,10 +53,12 @@ const ConfidentialDocumentsList = () => {
     document.body.removeChild(link);
   };
 
+  const canEdit = keycloak.hasRealmRole('Administrador') || keycloak.hasRealmRole('Gerente');
+
   return (
     <div>
       <h2>Documentos Confidenciales</h2>
-      <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>
+      {canEdit && <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -79,15 +83,19 @@ const ConfidentialDocumentsList = () => {
                 )}
               </td>
               <td>
-                <Button variant="warning" className="mr-2" onClick={() => handleShowForm(doc)}>Editar</Button>
-                <Button variant="danger" onClick={() => handleDeleteDocument(doc.id)}>Eliminar</Button>
+                {canEdit && (
+                  <>
+                    <Button variant="warning" className="mr-2" onClick={() => handleShowForm(doc)}>Editar</Button>
+                    <Button variant="danger" onClick={() => handleDeleteDocument(doc.id)}>Eliminar</Button>
+                  </>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
 
-      <DocumentForm show={showForm} handleClose={handleCloseForm} handleSave={handleSaveDocument} currentDocument={currentDocument} />
+      {canEdit && <DocumentForm show={showForm} handleClose={handleCloseForm} handleSave={handleSaveDocument} currentDocument={currentDocument} />}
     </div>
   );
 };
