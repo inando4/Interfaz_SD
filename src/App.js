@@ -7,6 +7,10 @@ import Footer from './components/Footer'; // Importa el componente Footer
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useKeycloak } from '@react-keycloak/web';
+import HomePage from './components/HomePage';
+import PublicDocumentsList from './components/PublicDocumentsList';
+import ConfidentialDocumentsList from './components/ConfidentialDocumentsList';
+import SecretDocumentsList from './components/SecretDocumentsList';
 
 const ProtectedRoute = ({ isAllowed, redirectPath = '/', children }) => {
   if (!isAllowed) {
@@ -18,7 +22,7 @@ const ProtectedRoute = ({ isAllowed, redirectPath = '/', children }) => {
 
 const App = () => {
   const { keycloak, initialized } = useKeycloak();
-  const initialTimeLeft = parseInt(localStorage.getItem('timeLeft')) || 300; // 5 minutes in seconds
+  const initialTimeLeft = parseInt(localStorage.getItem('timeLeft')) || 10000000; // 5 minutes in seconds, estaba en 300
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
 
   useEffect(() => {
@@ -79,8 +83,11 @@ const App = () => {
 
       <div className="App">
         <Routes>
-          <Route exact path="/" element={<VotingList userName={keycloak.authenticated ? userName : null} />} />
+          <Route exact path="/" element={<HomePage userName={keycloak.authenticated ? userName : null} />} />
           <Route path="/election/:electionId" element={<CandidateTemplates />} />
+          <Route path="/public-documents" element={<PublicDocumentsList />} />
+          <Route path="/confidential-documents" element={<ConfidentialDocumentsList />} />
+          <Route path="/secret-documents" element={<SecretDocumentsList />} />
           <Route
             path="/admin/*"
             element={
