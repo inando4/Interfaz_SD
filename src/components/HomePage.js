@@ -17,14 +17,35 @@ const HomePage = () => {
       <br className='text-left'></br>
       <h1>Bienvenido, {userName}, al Sistema de Gestión de Documentos</h1>
       <br></br>
-      <Button variant="primary" size="lg" className="m-3" onClick={() => navigate('/public-documents')}>
-        Documentos Públicos
+      <Button 
+        variant="primary" 
+        size="lg" 
+        className="m-3" 
+        style={{ width: '200px', height: '400px' }} 
+        onClick={() => navigate('/public-documents')}
+      >
+        <img src="/public-documents.png" alt="Documentos Públicos" style={{ width: '50px', height: '50px' }} />
+        <div>Documentos Públicos</div>
       </Button>
-      <Button variant="secondary" size="lg" className="m-3" onClick={() => navigate('/confidential-documents')}>
-        Documentos Confidenciales
+      <Button 
+        variant="secondary" 
+        size="lg" 
+        className="m-3" 
+        style={{ width: '200px', height: '400px' }} 
+        onClick={() => navigate('/confidential-documents')}
+      >
+        <img src="/confidential-documents.png" alt="Documentos Confidenciales" style={{ width: '50px', height: '50px' }} />
+        <div>Documentos Confidenciales</div>
       </Button>
-      <Button variant="danger" size="lg" className="m-3" onClick={() => navigate('/secret-documents')}>
-        Documentos Secretos
+      <Button 
+        variant="danger" 
+        size="lg" 
+        className="m-3" 
+        style={{ width: '200px', height: '400px' }} 
+        onClick={() => navigate('/secret-documents')}
+      >
+        <img src="/secret-documents.png" alt="Documentos Secretos" style={{ width: '50px', height: '50px' }} />
+        <div>Documentos Secretos</div>
       </Button>
     </div>
   );

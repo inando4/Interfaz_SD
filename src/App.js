@@ -19,7 +19,7 @@ const ProtectedRoute = ({ isAllowed, redirectPath = '/', children }) => {
 
 const App = () => {
   const { keycloak, initialized } = useKeycloak();
-  const initialTimeLeft = parseInt(localStorage.getItem('timeLeft')) || 10000000; // 5 minutes in seconds, estaba en 300
+  const initialTimeLeft = parseInt(localStorage.getItem('timeLeft')) || 300; // 5 minutes in seconds
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
 
   useEffect(() => {
