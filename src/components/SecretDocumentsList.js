@@ -56,8 +56,8 @@ const SecretDocumentsList = () => {
   const canEdit = keycloak.hasRealmRole('Administrador');
 
   return (
-    <div>
-      <br></br>
+    <div style={{ margin: '40px' }}>
+
       <h3 className="text-center">Documentos Secretos</h3>
       {canEdit && <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>}
       <br></br>
