@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import DocumentForm from './DocumentForm';
+import { useKeycloak } from '@react-keycloak/web';
 
 const SecretDocumentsList = () => {
+  const { keycloak } = useKeycloak();
   const [documents, setDocuments] = useState(() => {
     const savedDocuments = localStorage.getItem('secretDocuments');
     return savedDocuments ? JSON.parse(savedDocuments) : [];
@@ -51,11 +53,13 @@ const SecretDocumentsList = () => {
     document.body.removeChild(link);
   };
 
+  const canEdit = keycloak.hasRealmRole('Administrador');
+
   return (
     <div>
       <br></br>
-      <h2 className="text-center">Documentos Secretos</h2>
-      <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>
+      <h3 className="text-center">Documentos Secretos</h3>
+      {canEdit && <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>}
       <br></br>
       <br></br>
       <Table striped bordered hover>
@@ -63,9 +67,9 @@ const SecretDocumentsList = () => {
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Archivo</th>
-            <th>Acciones</th>
+            <th style={{ width: '30%' }}>Descripción</th>
+            <th style={{ width: '20%' }}>Archivo</th>
+            <th style={{ width: '12%' }}>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -82,15 +86,19 @@ const SecretDocumentsList = () => {
                 )}
               </td>
               <td>
-                <Button variant="warning" className="mr-2" onClick={() => handleShowForm(doc)}>Editar</Button>
-                <Button variant="danger" onClick={() => handleDeleteDocument(doc.id)}>Eliminar</Button>
+                {canEdit && (
+                  <>
+                    <Button variant="warning" className="mr-2" style={{ marginRight: '10px' }} onClick={() => handleShowForm(doc)}>Editar</Button>
+                    <Button variant="danger" onClick={() => handleDeleteDocument(doc.id)}>Eliminar</Button>
+                  </>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
 
-      <DocumentForm show={showForm} handleClose={handleCloseForm} handleSave={handleSaveDocument} currentDocument={currentDocument} />
+      {canEdit && <DocumentForm show={showForm} handleClose={handleCloseForm} handleSave={handleSaveDocument} currentDocument={currentDocument} />}
     </div>
   );
 };

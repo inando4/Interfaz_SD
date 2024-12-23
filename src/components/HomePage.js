@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <div className="text-center">
       <br className='text-left'></br>
-      <h1>Bienvenido, {userName}, al Sistema de Gestión de Documentos</h1>
+      <h3>Bienvenido, {userName}, al Sistema de Gestión de Documentos</h3>
       <br></br>
       <Button 
         variant="primary" 

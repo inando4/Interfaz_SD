@@ -58,7 +58,7 @@ const PublicDocumentsList = () => {
   return (
     <div>
       <br></br>
-      <h2 className="text-center">Documentos Públicos</h2>
+      <h3 className="text-center">Documentos Públicos</h3>
       {canEdit && <Button variant="primary" onClick={() => handleShowForm()}>Agregar Documento</Button>}
       <br></br>
       <br></br>
@@ -67,9 +67,9 @@ const PublicDocumentsList = () => {
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Archivo</th>
-            <th>Acciones</th>
+            <th style={{ width: '30%' }}>Descripción</th>
+            <th style={{ width: '20%' }}>Archivo</th>
+            <th style={{ width: '12%' }}>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -88,7 +88,7 @@ const PublicDocumentsList = () => {
               <td>
                 {canEdit && (
                   <>
-                    <Button variant="warning" className="mr-2" onClick={() => handleShowForm(doc)}>Editar</Button>
+                    <Button variant="warning" className="mr-2" style={{ marginRight: '10px' }} onClick={() => handleShowForm(doc)}>Editar</Button>
                     <Button variant="danger" onClick={() => handleDeleteDocument(doc.id)}>Eliminar</Button>
                   </>
                 )}
